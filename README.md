@@ -1,11 +1,11 @@
 # Slot_Machine
-''' This is a game of gambling, somewhat similar to slot machine. '''
+""" This is a game of gambling, somewhat similar to slot machine. """
 
 import random
 
 MAX_LINES = 3
-MAX_BET = 100
-MIN_BET = 1
+MAX_BET = 1000
+MIN_BET = 10
 
 ROWS = 3
 COLS = 3
@@ -74,7 +74,7 @@ def print_slot_machine(columns):
 
 def deposit():
     while True:
-        amount = input("What would you like to deposit? $")
+        amount = input("What would you like to deposit? Rs ")
         if amount.isdigit():
             amount = int(amount)
             if amount > 0:
@@ -105,13 +105,13 @@ def get_number_of_lines():
 
 def get_bet():
     while True:
-        amount = input("What would you like to bet on each line? $")
+        amount = input("What would you like to bet on each line? Rs ")
         if amount.isdigit():
             amount = int(amount)
             if MIN_BET <= amount <= MAX_BET:
                 break
             else:
-                print(f"Amount must be between ${MIN_BET} - ${MAX_BET}.")
+                print(f"Amount must be between Rs{MIN_BET} - Rs{MAX_BET}.")
         else:
             print("Please enter a number.")
 
@@ -126,17 +126,17 @@ def spin(balance):
 
         if total_bet > balance:
             print(
-                f"You do not have enough to bet that amount, your current balance is: ${balance}")
+                f"You do not have enough to bet that amount, your current balance is: Rs {balance}")
         else:
             break
 
     print(
-        f"You are betting ${bet} on {lines} lines. Total bet is equal to: ${total_bet}")
+        f"You are betting Rs {bet} on {lines} lines. Total bet is equal to: Rs {total_bet}")
 
     slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
     print_slot_machine(slots)
     winnings, winning_lines = check_winnings(slots, lines, bet, symbol_value)
-    print(f"You won ${winnings}.")
+    print(f"You won Rs {winnings}.")
     print(f"You won on lines:", *winning_lines)
     return winnings - total_bet
 
@@ -144,13 +144,13 @@ def spin(balance):
 def main():
     balance = deposit()
     while True:
-        print(f"Current balance is ${balance}")
+        print(f"Current balance is Rs {balance}")
         answer = input("Press enter to play (q to quit).")
         if answer == "q":
             break
         balance += spin(balance)
 
-    print(f"You left with ${balance}")
+    print(f"You left with Rs {balance}")
 
 
 main()
